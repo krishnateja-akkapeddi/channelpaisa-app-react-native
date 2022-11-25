@@ -1,0 +1,10 @@
+[
+  {"name": "Pfizer", "url": "https://picsum.photos/seed/picsum/200/300"},
+  {"name": "Cipla", "url": "https://picsum.photos/200/300?grayscale"},
+  {
+    "name": "Biocon",
+    "url": "https://picsum.photos/id/870/200/300?grayscale&blur=2"
+  },
+  {"name": "Bitcoin", "url": "https://picsum.photos/200/300"},
+  {"name": "Tata", "url": "https://picsum.photos/200"}
+]
