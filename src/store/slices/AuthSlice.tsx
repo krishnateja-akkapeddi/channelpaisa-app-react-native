@@ -11,6 +11,7 @@ export const authSlice = createSlice({
     clearAuthSlice: () => initialState,
     storeAuthResult: (state, action: PayloadAction<AuthResult>) => {
       state.data = action.payload.data;
+      state.success = action.payload.success;
     },
   },
 });

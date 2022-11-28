@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Snackbar from 'react-native-snackbar';
+import {useDispatch, useSelector} from 'react-redux';
 import OTPView from '../../components/app/auth/OTPView';
 import ResendOTPMode from '../../components/app/auth/ResendOTPMode';
 import AdaptiveButton from '../../components/button/AdaptiveButton';
@@ -25,6 +26,8 @@ const EnterOTPScreen: React.FC<
 > = props => {
   const [otp, setOtp] = useState('');
   const [mobile, setMobile] = useState('');
+  const state = useSelector(state => state);
+  const dispatch = useDispatch();
   useEffect(() => {
     Snackbar.show({
       text: 'OTP sent successfully',
@@ -48,20 +51,19 @@ const EnterOTPScreen: React.FC<
         method: APIMethod.post,
         body: raw,
       });
-
-      store.dispatch(authSlice.actions.storeAuthResult(data.data));
-    } catch (errror: any) {
-      console.log(errror);
+      dispatch(authSlice.actions.storeAuthResult(data));
+    } catch (error) {
+      console.log('ERROR', error);
     }
-
-    // if (isLogin == true) {
-    //   await SharedPreference.shared.setItem(kSharedKeys.userDetails, '');
-    //   RootNavigation.replace('Drawer');
-    // } else {
-    //   RootNavigation.navigate('EnterGSTScreen');
-    // }
   };
-  console.log('Auth state', store.getState().auth.data);
+
+  // if (isLogin == true) {
+  //   await SharedPreference.shared.setItem(kSharedKeys.userDetails, '');
+  //   RootNavigation.replace('Drawer');
+  // } else {
+  //   RootNavigation.navigate('EnterGSTScreen');
+  // }
+
   useEffect(() => {
     const otpOb = async () => {
       let sm = await SharedPreference.shared.getItem('otpDetails');
@@ -71,6 +73,9 @@ const EnterOTPScreen: React.FC<
     };
     !mobile && otpOb();
   }, [mobile]);
+  useEffect(() => {
+    console.log('Authdwdf state', state);
+  }, [state]);
   return (
     <AuthBaseScreen
       title={AppLocalizedStrings.auth.enterOTP}
